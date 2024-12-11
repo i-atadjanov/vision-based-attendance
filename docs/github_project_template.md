@@ -119,3 +119,75 @@ This project is to develop a modular, scalable FaceID-based attendance system in
 - `Enhancement`: For future features or improvements.
 - `Bug`: For reported issues during development.
 
+---
+
+## **Lesson 1 Outputs**
+
+### **Functional Requirements**
+```
+# Functional Requirements
+- Extract embeddings from a facial image.
+- Compare live embeddings to stored embeddings.
+- Return similarity scores and potential matches.
+- Integrate with LMS to update attendance.
+```
+
+### **Non-Functional Requirements**
+```
+# Non-Functional Requirements
+- Process images in real-time (<500ms per image).
+- Ensure high accuracy (95%+ identification rate).
+- Maintain privacy: no image or embedding storage in the FaceID system.
+- Scalable to handle multiple classrooms concurrently.
+```
+
+### **API Draft**
+```
+# API Specifications
+## Endpoint: /extract_embeddings
+- Method: POST
+- Input:
+  ```json
+  {
+    "image": "<base64_encoded_image>"
+  }
+  ```
+- Output:
+  ```json
+  {
+    "embedding": [0.123, 0.456, 0.789],
+    "version": "v1.0"
+  }
+  ```
+
+## Endpoint: /compare_embeddings
+- Method: POST
+- Input:
+  ```json
+  {
+    "live_embedding": [0.123, 0.456, 0.789],
+    "stored_embeddings": [
+      {"student_id": "123", "embedding": [0.122, 0.457, 0.788]},
+      {"student_id": "456", "embedding": [0.321, 0.654, 0.987]}
+    ]
+  }
+  ```
+- Output:
+  ```json
+  {
+    "matches": [
+      {"student_id": "123", "similarity": 0.98},
+      {"student_id": "456", "similarity": 0.67}
+    ]
+  }
+  ```
+
+## Endpoint: /health
+- Method: GET
+- Output:
+  ```json
+  {
+    "status": "healthy"
+  }
+  ```
+```
